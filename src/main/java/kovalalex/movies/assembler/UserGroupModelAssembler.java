@@ -26,7 +26,7 @@ public class UserGroupModelAssembler extends RepresentationModelAssemblerSupport
 
         UserGroupModel model = new UserGroupModel(entity);
 
-        //model.add(linkTo());
+        model.add(linkTo(methodOn(UserGroupController.class).getUserListByGroupId(entity.getId())).withRel("userList"));
 
         return model;
     }
@@ -34,7 +34,6 @@ public class UserGroupModelAssembler extends RepresentationModelAssemblerSupport
     public CollectionModel<UserGroupModel> toModelAll(List<UserGroup> userGroupList) {
         List<UserGroupModel> collect = userGroupList.stream().map(this::toModel).collect(Collectors.toList());
         List<Link> links = new ArrayList<>();
-        CollectionModel<UserGroupModel> collectionModel = new CollectionModel<>(collect, links);
-        return collectionModel;
+        return new CollectionModel<>(collect, links);
     }
 }

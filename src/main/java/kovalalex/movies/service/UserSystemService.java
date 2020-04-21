@@ -3,7 +3,6 @@ package kovalalex.movies.service;
 import kovalalex.movies.domain.Role;
 import kovalalex.movies.domain.User;
 import kovalalex.movies.domain.UserGroup;
-import org.springframework.dao.DataAccessException;
 
 import java.util.Collection;
 
