@@ -1,5 +1,6 @@
 package kovalalex.movies.assembler;
 
+import kovalalex.movies.controller.UserGroupController;
 import kovalalex.movies.domain.UserGroup;
 import kovalalex.movies.model.UserGroupModel;
 import org.springframework.hateoas.CollectionModel;
@@ -16,8 +17,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
 public class UserGroupModelAssembler extends RepresentationModelAssemblerSupport<UserGroup, UserGroupModel> {
-    public UserGroupModelAssembler(Class<?> controllerClass, Class<UserGroupModel> resourceType) {
-        super(controllerClass, resourceType);
+    public UserGroupModelAssembler() {
+        super(UserGroupController.class, UserGroupModel.class);
     }
 
     @Override
@@ -27,7 +28,7 @@ public class UserGroupModelAssembler extends RepresentationModelAssemblerSupport
 
         //model.add(linkTo());
 
-        return null;
+        return model;
     }
 
     public CollectionModel<UserGroupModel> toModelAll(List<UserGroup> userGroupList) {

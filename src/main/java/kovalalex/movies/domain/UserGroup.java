@@ -3,6 +3,7 @@ package kovalalex.movies.domain;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -15,7 +16,7 @@ public class UserGroup {
     @Column(name = "title")
     private String title;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable (name="users_usergroups",
             joinColumns=@JoinColumn (name="usergroup_id"),
             inverseJoinColumns=@JoinColumn(name="user_id"))
@@ -45,5 +46,19 @@ public class UserGroup {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserGroup group = (UserGroup) o;
+        return Objects.equals(id, group.id) &&
+                Objects.equals(title, group.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title);
     }
 }

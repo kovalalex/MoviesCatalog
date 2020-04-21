@@ -1,6 +1,7 @@
 package kovalalex.movies.model;
 
 import kovalalex.movies.domain.UserGroup;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.hateoas.RepresentationModel;
@@ -10,6 +11,7 @@ import org.springframework.hateoas.RepresentationModel;
  */
 @ToString
 @Getter
+@EqualsAndHashCode
 public class UserGroupModel extends RepresentationModel<UserGroupModel> {
     private final Integer id;
     private final String title;

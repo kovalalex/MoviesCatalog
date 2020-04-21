@@ -4,6 +4,8 @@ package kovalalex.movies.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -23,7 +25,7 @@ public class User {
     @Column(name = "enabled")
     private Boolean enabled;
 
-    @ManyToOne (optional=false, cascade=CascadeType.ALL)
+    @ManyToOne (cascade=CascadeType.ALL)
     @JoinColumn (name="role_id")
     private Role role;
 
@@ -32,7 +34,7 @@ public class User {
             joinColumns=@JoinColumn (name="user_id"),
             inverseJoinColumns=@JoinColumn(name="usergroup_id"))
     @JsonBackReference
-    private Set<UserGroup> userGroups;
+    private Set<UserGroup> userGroups = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -80,5 +82,21 @@ public class User {
 
     public void setUserGroups(Set<UserGroup> userGroups) {
         this.userGroups = userGroups;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(enabled, user.enabled);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, enabled);
     }
 }

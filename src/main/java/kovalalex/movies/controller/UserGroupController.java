@@ -32,7 +32,8 @@ public class UserGroupController {
 
     @GetMapping
     public ResponseEntity<CollectionModel<UserGroupModel>> getAll() {
-        return ResponseEntity.ok(assembler.toModelAll(service.all()));
+
+        return ResponseEntity.ok(assembler.toCollectionModel(service.all()));
     }
 
 
