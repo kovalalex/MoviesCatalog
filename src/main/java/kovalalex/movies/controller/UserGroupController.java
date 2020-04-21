@@ -32,11 +32,7 @@ public class UserGroupController {
 
     @GetMapping
     public ResponseEntity<CollectionModel<UserGroupModel>> getAll() {
-
-        List<UserGroupModel> userGroupModels = service.all().stream().map(assembler::toModel).collect(Collectors.toList());
-        CollectionModel<UserGroupModel> = new CollectionModel<>()
-                // ToDO: вынести в Assembler, принимает два iterable;
-        return ResponseEntity.ok();
+        return ResponseEntity.ok(assembler.toModelAll(service.all()));
     }
 
 

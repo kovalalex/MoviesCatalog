@@ -7,6 +7,10 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -24,5 +28,12 @@ public class UserGroupModelAssembler extends RepresentationModelAssemblerSupport
         //model.add(linkTo());
 
         return null;
+    }
+
+    public CollectionModel<UserGroupModel> toModelAll(List<UserGroup> userGroupList) {
+        List<UserGroupModel> collect = userGroupList.stream().map(this::toModel).collect(Collectors.toList());
+        List<Link> links = new ArrayList<>();
+        CollectionModel<UserGroupModel> collectionModel = new CollectionModel<>(collect, links);
+        return collectionModel;
     }
 }
