@@ -1,34 +1,43 @@
 package kovalalex.movies.controller;
 
+import kovalalex.movies.assembler.UserGroupModelAssembler;
 import kovalalex.movies.domain.User;
 import kovalalex.movies.domain.UserGroup;
+import kovalalex.movies.model.UserGroupModel;
+import kovalalex.movies.service.UserGroupService;
 import kovalalex.movies.service.UserSystemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/usergroups")
 public class UserGroupController {
-    private final UserSystemService userSystemService;
+    private final UserGroupService service;
+    private final UserGroupModelAssembler assembler;
 
     @Autowired
-    public UserGroupController(UserSystemService userSystemService) {
-        this.userSystemService = userSystemService;
+    public UserGroupController(UserGroupService service, UserGroupModelAssembler assembler) {
+        this.service = service;
+        this.assembler = assembler;
     }
+
 
     @GetMapping
-    public Collection<UserGroup> getAll() {
-        return userSystemService.findAllUserGroups();
+    public ResponseEntity<CollectionModel<UserGroupModel>> getAll() {
+
+        List<UserGroupModel> userGroupModels = service.all().stream().map(assembler::toModel).collect(Collectors.toList());
+        CollectionModel<UserGroupModel> = new CollectionModel<>()
+                // ToDO: вынести в Assembler, принимает два iterable;
+        return ResponseEntity.ok();
     }
 
-    @PostMapping
-    public ResponseEntity<UserGroup> addUser(@RequestBody @Valid UserGroup userGroup) throws Exception {
-        userSystemService.saveUserGroup(userGroup);
-        return new ResponseEntity<>(userGroup, HttpStatus.CREATED);
-    }
+
 }
