@@ -11,7 +11,7 @@ import org.springframework.hateoas.RepresentationModel;
  */
 @ToString
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class UserModel extends RepresentationModel<UserModel> {
     private Integer id;
     private String username;

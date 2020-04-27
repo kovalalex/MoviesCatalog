@@ -11,7 +11,7 @@ import org.springframework.hateoas.RepresentationModel;
  */
 @ToString
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class UserGroupModel extends RepresentationModel<UserGroupModel> {
     private final Integer id;
     private final String title;

@@ -8,7 +8,7 @@ import org.springframework.hateoas.RepresentationModel;
 
 @ToString
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 public class RoleModel extends RepresentationModel<RoleModel> {
     private final Integer id;
     private final String title;
